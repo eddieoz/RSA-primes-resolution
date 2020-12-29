@@ -130,7 +130,7 @@ phi = (p-1) * (q-1)
 # Private exponent (d): d = e ^ -1 mod phi
 priv_key = modinv(e, phi)
 
-# print("hex_pub_key: %s int_pub_key: %s\n" % (hex_pub_key, pub_key))
+print("hex_pub_key: %s int_pub_key: %s\n" % (hex_pub_key, pub_key))
 print("Triangle A=%s B=%s C=%s"%(sideA,sideB,sideC))
 print("Prime 1 (p): %s Prime2 (q): %s time: %s" % (p,q,stop))
 print("exponent e: %s phi(n): %s" % (e, int(phi)))
