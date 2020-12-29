@@ -99,7 +99,7 @@ def findSideA(sideB):
 
 ### Pub keys used in robertedwardgrant.com/post/prime-factor-based-encryptions-rendered-useless-by-right-triangle-based-constant-time-solution
 # [15145547, 13053427,236837459, 12193, 52917491789581]
-pub_key = 60221408200075953452102
+# pub_key = 12193
 ###
 
 # Receive hex_pub_key as a command line parameter 
@@ -107,9 +107,9 @@ pub_key = 60221408200075953452102
 # to create a 56bits key
 # 
 # example: python3 find_primes.py b679b3596d04fd
-# hex_pub_key = str(sys.argv[1])
-# # convert it to int
-# pub_key = int(hex_pub_key,16)
+hex_pub_key = str(sys.argv[1])
+# convert it to int
+pub_key = int(hex_pub_key,16)
 
 start = timer()
 # Calculate the sides A, B and C of the triangle and find the primes p, q
