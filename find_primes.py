@@ -6,7 +6,7 @@
 # (with modifications)
 #
 # Author: Edilson Osorio Jr - @eddieoz - eddieoz.crypto
-# License: Creative Commons Attribution-ShareAlike 4.0 International License - http://creativecommons.org/licenses/by-sa/4.0/
+# License: MIT
 # 
 # You can generate small keys to test on 
 # https://www.mobilefish.com/services/rsa_key_generation/rsa_key_generation.php 
@@ -99,7 +99,7 @@ def findSideA(sideB):
 
 ### Pub keys used in robertedwardgrant.com/post/prime-factor-based-encryptions-rendered-useless-by-right-triangle-based-constant-time-solution
 # [15145547, 13053427,236837459, 12193, 52917491789581]
-# pub_key = 12193
+pub_key = 60221408200075953452102
 ###
 
 # Receive hex_pub_key as a command line parameter 
@@ -107,9 +107,9 @@ def findSideA(sideB):
 # to create a 56bits key
 # 
 # example: python3 find_primes.py b679b3596d04fd
-hex_pub_key = str(sys.argv[1])
-# convert it to int
-pub_key = int(hex_pub_key,16)
+# hex_pub_key = str(sys.argv[1])
+# # convert it to int
+# pub_key = int(hex_pub_key,16)
 
 start = timer()
 # Calculate the sides A, B and C of the triangle and find the primes p, q
@@ -130,7 +130,7 @@ phi = (p-1) * (q-1)
 # Private exponent (d): d = e ^ -1 mod phi
 priv_key = modinv(e, phi)
 
-print("hex_pub_key: %s int_pub_key: %s\n" % (hex_pub_key, pub_key))
+# print("hex_pub_key: %s int_pub_key: %s\n" % (hex_pub_key, pub_key))
 print("Triangle A=%s B=%s C=%s"%(sideA,sideB,sideC))
 print("Prime 1 (p): %s Prime2 (q): %s time: %s" % (p,q,stop))
 print("exponent e: %s phi(n): %s" % (e, int(phi)))
@@ -141,12 +141,12 @@ print("Private Key (d): %s\n" % priv_key)
 message = 159463387759167
 print("Message: %s" % message)
 
-# Encrypt
+# Encrypt Ciphertext (c): c = (m ^ e) mod n
 ct = (message**e) % pub_key
 ct = pow(message,e,pub_key)
-print("Cypher text: %s" % ct)
+print("Encrypt message with given RSA Public Key: %s" % ct)
 
-# Decrypt
+# Decrypt (m): m = (c ^ d) mod n
 dt = pow(ct, priv_key, modulus)
-print("Decrypted text: %s " % (dt)) 
+print("Decrypted message with RSA recovered Private Key: %s " % (dt)) 
  
