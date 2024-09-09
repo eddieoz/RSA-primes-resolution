@@ -1,6 +1,6 @@
 # RSA-primes-resolution
 
-- Reconstruct a Private Key from a given Public Key using the Right Triangle-based Constant time mathematical solution method. 
+- Reconstruct a Private Key from a given Public Key using the Right Triangle-based Constant time mathematical solution method (find_primes.py) and by using Neural Networks with Keras (find_primes-nn.py). 
 
 # Security Considerations
 
