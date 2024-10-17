@@ -4,7 +4,7 @@
 # (with modifications)
 # This code update uses a hybrid approach, combining neural networks and classical methods for factoring RSA public keys.
 # Authors: Edilson Osorio Jr - @eddieoz - eddieoz.crypto
-#           Felipe - @mrfelpa
+#          Felipe - @mrfelpa
 
 # License: MIT
 # 
@@ -18,7 +18,7 @@ import math
 import sys
 import random
 import numpy as np
-import pandas as pd  # Para coleta de dados
+import pandas as pd  # For data collection
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
