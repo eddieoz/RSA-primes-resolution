@@ -4,7 +4,7 @@
 # (with modifications)
 # This code update uses a hybrid approach, combining neural networks and classical methods for factoring RSA public keys.
 # Authors: Edilson Osorio Jr - @eddieoz - eddieoz.crypto
-           Felipe - @mrfelpa
+#           Felipe - @mrfelpa
 
 # License: MIT
 # 
@@ -18,6 +18,7 @@ import math
 import sys
 import random
 import numpy as np
+import pandas as pd  # Para coleta de dados
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
@@ -26,32 +27,34 @@ from rich.table import Table
 from timeit import default_timer as timer
 
 def is_prime(n, k=10):
-    if n == 2:
-        return True
-    if not n & 1:
-        return False
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0:
+        return False
 
-    def check(a, s, d, n):
-        x = pow(a, d, n)
-        if x == 1 or x == n - 1:
-            return True
-        for i in range(1, s):
-            x = pow(x, 2, n)
-            if x == n - 1:
-                return True
-        return False
+    def check(a, s, d, n):
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            return True
+        for i in range(1, s):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                return True
+        return False
 
-    s = 0
-    d = n - 1
-    while d % 2 == 0:
-        d >>= 1
-        s += 1
+    s = 0
+    d = n - 1
+    while d % 2 == 0:
+        d //= 2
+        s += 1
 
-    for i in range(k):
-        a = random.randint(2, n)
-        if not check(a, s, d, n):
-            return False
-    return True
+    for _ in range(k):
+        a = random.randint(2, n - 2)
+        if not check(a, s, d, n):
+            return False
+    return True
 
 # Extended Euclid Algorithm
 def egcd(a, b):
@@ -94,6 +97,13 @@ def update_model(pub_key, p, q):
     X_new = np.array([[pub_key]])
     y_new = np.array([[p, q]])
     model.fit(X_new, y_new, epochs=10, batch_size=1, verbose=0)
+
+# Log data for future model improvements
+    log_data(pub_key, p, q)
+
+def log_data(pub_key, p, q):
+    df = pd.DataFrame({'pub_key': [pub_key], 'p': [p], 'q': [q]})
+    df.to_csv('model_data.csv', mode='a', header=False, index=False)
 
 def main():
     console = Console()
